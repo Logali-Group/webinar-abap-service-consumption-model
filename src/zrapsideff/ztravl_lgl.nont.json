@@ -1,0 +1,11 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "SAP Object Node Type ZTRAVL_LGL",
+    "originalLanguage": "en",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "name": "ZTRAVL_LGL",
+  "sapObjectType": "ZTRAVL_LGL",
+  "rootNode": true
+}

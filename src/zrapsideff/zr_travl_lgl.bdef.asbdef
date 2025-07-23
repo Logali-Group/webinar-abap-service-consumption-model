@@ -1,0 +1,85 @@
+managed implementation in class ZBP_R_TRAVL_LGL unique;
+strict ( 2 );
+with draft;
+extensible;
+define behavior for ZR_TRAVL_LGL alias Travel
+persistent table ztravl_lgl
+extensible
+draft table ztravl_lgl_d
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master ( global )
+
+{
+
+  create;
+  update;
+  delete;
+
+  field ( readonly )
+  TravelUuid,
+  CustomerName,
+  LocalCreatedBy,
+  LocalCreatedAt,
+  LocalLastChangedBy,
+  LocalLastChangedAt,
+  LastChangedAt;
+
+  field ( numbering : managed )
+  TravelUuid;
+
+  determination setCustomerName on modify { field CustomerId; }
+
+  action action1;
+  action action2;
+  action action3;
+
+  validation validateCustomer on save { create; field CustomerId; }
+
+  determine action determineAction1 { validation validateCustomer; }
+
+  side effects {
+
+    //Field //
+    field CustomerId affects field CustomerName;
+//    field AgencyId affects entity _Customer, messages;
+//    field BookingFee affects $self, messages;
+//    field BeginDate affects permissions ( field AgencyId );
+//
+//    // Actions //
+//    action action1 affects field CustomerId, messages;
+//    action action2 affects entity _Customer, messages;
+//    action action3 affects $self, messages;
+//
+//    // Determine Action //
+//    determine action determineAction1 executed on field CustomerId affects messages;
+  }
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ztravl_lgl corresponding extensible
+    {
+      TravelUuid         = travel_uuid;
+      TravelId           = travel_id;
+      AgencyId           = agency_id;
+      CustomerId         = customer_id;
+      CustomerName       = customer_name;
+      BeginDate          = begin_date;
+      EndDate            = end_date;
+      BookingFee         = booking_fee;
+      TotalPrice         = total_price;
+      CurrencyCode       = currency_code;
+      Description        = description;
+      OverallStatus      = overall_status;
+      LocalCreatedBy     = local_created_by;
+      LocalCreatedAt     = local_created_at;
+      LocalLastChangedBy = local_last_changed_by;
+      LocalLastChangedAt = local_last_changed_at;
+      LastChangedAt      = last_changed_at;
+    }
+
+}
